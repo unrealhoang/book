@@ -6,7 +6,7 @@ rust:
   - beta
   - stable
 before_script:
-  - "cargo install mdbook"
+  - "(cargo install mdbook --force || true)"
 script:
   - PATH=$PATH:/home/travis/.cargo/bin mdbook test
   - PATH=$PATH:/home/travis/.cargo/bin mdbook build
