@@ -2,58 +2,58 @@
 
 ## Getting started
 
-- [Introduction](ch01-00-introduction.md)
-    - [Installation](ch01-01-installation.md)
-    - [Hello, World!](ch01-02-hello-world.md)
+- [Giới thiệu](ch01-00-introduction.md)
+    - [Cài đặt]()
+    - [Hello, World!]()
 
-- [Guessing Game Tutorial](ch02-00-guessing-game-tutorial.md)
+- [Guessing Game Tutorial]()
 
-- [Common Programming Concepts](ch03-00-common-programming-concepts.md)
-    - [Variables and Mutability](ch03-01-variables-and-mutability.md)
-    - [Data Types](ch03-02-data-types.md)
-    - [How Functions Work](ch03-03-how-functions-work.md)
-    - [Comments](ch03-04-comments.md)
-    - [Control Flow](ch03-05-control-flow.md)
+- [Common Programming Concepts]()
+    - [Variables and Mutability]()
+    - [Data Types]()
+    - [How Functions Work]()
+    - [Comments]()
+    - [Control Flow]()
 
-- [Understanding Ownership](ch04-00-understanding-ownership.md)
-    - [What is Ownership?](ch04-01-what-is-ownership.md)
-    - [References & Borrowing](ch04-02-references-and-borrowing.md)
-    - [Slices](ch04-03-slices.md)
+- [Understanding Ownership]()
+    - [What is Ownership?]()
+    - [References & Borrowing]()
+    - [Slices]()
 
-- [Structs](ch05-00-structs.md)
-    - [Method Syntax](ch05-01-method-syntax.md)
+- [Structs]()
+    - [Method Syntax]()
 
-- [Enums](ch06-00-enums.md)
-    - [Option](ch06-01-option.md)
-    - [Match](ch06-02-match.md)
-    - [`if let`](ch06-03-if-let.md)
+- [Enums]()
+    - [Option]()
+    - [Match]()
+    - [`if let`]()
 
 ## Basic Rust Literacy
 
-- [Modules](ch07-00-modules.md)
-    - [`mod` and the Filesystem](ch07-01-mod-and-the-filesystem.md)
-    - [Controlling Visibility with `pub`](ch07-02-controlling-visibility-with-pub.md)
-    - [Importing Names with `use`](ch07-03-importing-names-with-use.md)
+- [Modules]()
+    - [`mod` and the Filesystem]()
+    - [Controlling Visibility with `pub`]()
+    - [Importing Names with `use`]()
 
-- [Fundamental Collections](ch08-00-fundamental-collections.md)
-    - [Vectors](ch08-01-vectors.md)
-    - [Strings](ch08-02-strings.md)
-    - [Hash Maps](ch08-03-hash-maps.md)
+- [Fundamental Collections]()
+    - [Vectors]()
+    - [Strings]()
+    - [Hash Maps]()
 
-- [Error Handling](ch09-00-error-handling.md)
-    - [Unrecoverable Errors with `panic!`](ch09-01-unrecoverable-errors-with-panic.md)
-    - [Recoverable Errors with `Result`](ch09-02-recoverable-errors-with-result.md)
-    - [To `panic!` or Not To `panic!`](ch09-03-to-panic-or-not-to-panic.md)
+- [Error Handling]()
+    - [Unrecoverable Errors with `panic!`]()
+    - [Recoverable Errors with `Result`]()
+    - [To `panic!` or Not To `panic!`]()
 
-- [Generics](ch10-00-generics.md)
-    - [Syntax](ch10-01-syntax.md)
-    - [Traits](ch10-02-traits.md)
-    - [Lifetime syntax](ch10-03-lifetime-syntax.md)
+- [Generics]()
+    - [Syntax]()
+    - [Traits]()
+    - [Lifetime syntax]()
 
-- [Testing](ch11-00-testing.md)
-    - [Writing tests](ch11-01-writing-tests.md)
-    - [Running tests](ch11-02-running-tests.md)
-    - [Test Organization](ch11-03-test-organization.md)
+- [Testing]()
+    - [Writing tests]()
+    - [Running tests]()
+    - [Test Organization]()
 
 - [I/O]()
     - [`Read` & `Write`]()
@@ -71,9 +71,9 @@
 - [Creating a Library]()
     - [Cargo]()
     - [Crates.io]()
-    - [Organizing your Public API](chYY-YY-public-api.md)
-    - [Documentation](chYY-YY-documentation.md)
-    - [Workspaces and Multiple Related Crates](chYY-YY-workspaces.md)
+    - [Organizing your Public API]()
+    - [Documentation]()
+    - [Workspaces and Multiple Related Crates]()
 
 - [Closures]()
 
@@ -96,7 +96,7 @@
 
 ## Advanced Topics
 
-- [Patterns](chXX-patterns.md)
+- [Patterns]()
 
 - [More Lifetimes]()
 
@@ -110,9 +110,9 @@
     - [Using Rust from Other Languages]()
     - [`static`]()
 
-- [Advanced Type System Features]() (perhaps called "Advanced Traits"?)
+- [Advanced Type System Features]() ()
     - [Associated Types]()
-    - [Trait Objects]() (might be incorporated into the Composition chapter?)
+    - [Trait Objects]() ()
     - [UFCS]()
     - [Coherence]()
 
@@ -123,7 +123,7 @@
     - [Nightly Features]()
     - [How to Find Out About Nightly Features]()
 
-- [Appendix](appendix-00.md)
-    - [Keywords](appendix-01-keywords.md)
-    - [Operators](appendix-02-operators.md)
-    - [Derivable Traits](appendix-03-derivable-traits.md)
+- [Appendix]()
+    - [Keywords]()
+    - [Operators]()
+    - [Derivable Traits]()
