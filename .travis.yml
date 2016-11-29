@@ -11,3 +11,4 @@ script:
   - PATH=$PATH:/home/travis/.cargo/bin mdbook test
   - PATH=$PATH:/home/travis/.cargo/bin mdbook build
   - cargo run --bin lfp src
+
