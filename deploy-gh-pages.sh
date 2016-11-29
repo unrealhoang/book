@@ -12,6 +12,7 @@ git config user.email "nguyengiangdev@gmail.com"
 
 git remote add deploy "https://$GH_TOKEN@github.com/rust-vietnam/rust-programming-language-book.git"
 git fetch deploy 
+git reset deploy/gh-pages
 
 touch .
 
