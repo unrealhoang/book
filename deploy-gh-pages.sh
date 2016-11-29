@@ -11,6 +11,7 @@ git config user.name "Giang Nguyen"
 git config user.email "nguyengiangdev@gmail.com"
 
 git remote add upstream "https://$GH_TOKEN@github.com/rust-vietnam/rust-programming-language-book.git"
+git remote -v
 git fetch upstream
 git reset upstream/gh-pages
 
