@@ -1,4 +1,4 @@
-# The Rust Programming Language Book
+# The Rust Programming Language Book [![Build Status](https://travis-ci.org/rust-vietnam/rust-programming-language-book.svg?branch=master)](https://travis-ci.org/rust-vietnam/rust-programming-language-book)
 
 ## Requirements
 
