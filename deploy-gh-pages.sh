@@ -10,12 +10,12 @@ git init
 git config user.name "Giang Nguyen"
 git config user.email "nguyengiangdev@gmail.com"
 
-git remote add deploy "https://$GH_TOKEN@github.com/rust-vietnam/book.git"
-git fetch deploy 
-git reset deploy/gh-pages
+git remote add upstream "https://$GH_TOKEN@github.com/rust-vietnam/book.git"
+git fetch upstream 
+git reset upstream/gh-pages
 
 touch .
 
 git add -A .
 git commit -m "rebuild pages at ${rev}"
-git push -q deploy HEAD:gh-pages > /dev/null 2>&1
+git push -q upstream HEAD:gh-pages > /dev/null 2>&1
