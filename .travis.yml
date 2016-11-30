@@ -11,7 +11,7 @@ script:
   - PATH=$PATH:/home/travis/.cargo/bin mdbook build
   - cargo run --bin lfp src
 after_success:
-  - bash deploy-gh-pages.sh
+  - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" &&  bash deploy-gh-pages.sh
 env:
   global:
     secure: o09Gpw/l8T49wbLt+E+idyc4eMd9yrKMdQd/5T4t1bIcsA3XGGLApU2KCh158A3DJFXuQSf2F6iif8Y0jLkgwKjCReXqDtGWwEDIXFyvrwjqsPrsPomgyl4r+yPKjhZXnp3vDUISIgMtFFf9EXOypyUxHZeYmQH1c2VMgW4YesfaVa/m5SEHpp8ioCr7dUwgG9c7QKVP3Q50T70lEZW7EtZb0EwIABiTL8zPUkGfFgP/jlv26DltvhfGLsoJ9RPbGGcS39xzdeBMhn/cI8qusrP1Ms5JjHmPdIo2p09mRLnpSB20qOmpg0EdVohKF4kAYWkWW7TQfukMJAwLGlggrNO3warX2CINKTyLjMn1ezU9Kk2LmVZ2a4WG64n0dE6F6DCB0MdSKV7QziCC7O1W+S8Ef2CUtpmU0Ocjm+wuK2YIZ1lVzE4rTk9s6/n+I5Oz2GUeHO9B3Dzr4hTR6n02kAwA6ILMXHNPCcXvfKcenmvmAJnWcql36+t2tpQpaZL1r8vsB939cyfvevxJcJeWRSOMdpIO2tymwQvePWhsjHYaxiy1K6yimofKYhys2LZlrnSMAxfsSc+bccFg7ke6IEhYzW7VKohIGm8Z1v+ykaNFaZLiA+8rPcdtGna+NzB0KjSyhRAz1preGIGDove5ASdYCCRS1AiC/JRFIlSb3yY=
