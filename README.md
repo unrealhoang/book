@@ -31,3 +31,5 @@ To run the tests:
 ```
 mdbook test
 ```
+
+## Contributing
