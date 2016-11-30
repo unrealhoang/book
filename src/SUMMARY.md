@@ -3,7 +3,7 @@
 ## Getting started
 
 - [Giới thiệu](ch01-00-introduction.md)
-    - [Cài đặt]()
+    - [Cài đặt](ch01-01-installation.md)
     - [Hello, World!]()
 
 - [Guessing Game Tutorial]()
