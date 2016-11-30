@@ -1,95 +1,82 @@
-## Installation
+## Cài đặt
 
-The first step to using Rust is to install it. You’ll need an internet
-connection to run the commands in this chapter, as we’ll be downloading Rust
-from the internet.
+Bước đầu tiên đề dùng được Rust là bạn phải cài đặt nó, yêu cầu
+máy tính của bạn phải được kết nối với internet.
 
-We’ll be showing off a number of commands using a terminal, and those lines all
-start with `$`. You don't need to type in the `$` character; they are there to indicate
-the start of each command. You’ll see many tutorials and examples around the web
-that follow this convention: `$` for commands run as a regular user, and `#`
-for commands you should be running as an administrator. Lines that don't start
-with `$` are typically showing the output of the previous command.
+Tất cả các bước dưới đây đoều sử dụng terminal, các dòng lệnh điều bắt đầu bằng `$`.
+Bạn không cần phải gõ lại `$`, ký hiệu này cho biết bắt đầu một dòng lệnh. `$` chạy dưới quyền
+người dùng bình thường, còn `#` chạy dưới quyền quản trị cao nhất.
 
-### Installing on Linux or Mac
+### Cài đặt trên hệ điều hành Linux và Mac (unix)
 
-If you're on Linux or a Mac, all you need to do is open a terminal and type
-this:
+Khi bạn dùng Linux hoặc Mac, bạn cần mở terminal lên và gõ lệnh sau:
 
 ```text
 $ curl https://sh.rustup.rs -sSf | sh
 ```
 
-This will download a script and start the installation. You may be prompted for
-your password. If it all goes well, you’ll see this appear:
+Dòng lệnh trên sẽ thực hiện các công việc cần thiết đề cài Rust vào máy của bạn,
+trong quá trình cài bạn cần nhập mật khẩu. Nếu không có lỗi gì xảy ra thì bạn
+sẽ nhận được nội dung như dưới đây:
 
 ```text
 Rust is installed now. Great!
 ```
 
-### Installing on Windows
+### Cài đặt trên Windows
 
-On Windows, go to [https://rustup.rs](https://rustup.rs/)<!-- ignore --> and
-follow the instructions to download rustup-init.exe. Run that and follow the
-rest of the instructions it gives you.
+Khi dùng Windows, truy cập địa chỉ [https://rustup.rs](https://rustup.rs/)<!-- ignore --> và làm theo
+các hướng dẫn để tải về `rustup-init.exe`. Chạy file `rustup-init.exe` và làm theo các hướng dẫn.
 
-The rest of the Windows-specific commands in the book will assume that you are
-using `cmd` as your shell. If you use a different shell, you may be able to run
-the same commands that Linux and Mac users do. If neither work, consult the
-documentation for the shell you are using.
+Đôi với những hướng dẫn cho phiên bản Windows điều dùng `cmd` để thực hiện các thao tác dòng lệnh
+. Nếu bạn dùng những loại shell khác bạn phải thực hiện các thao tác tường tự trên Mac và Linux.
 
-### Custom installations
+### Cài đặt tuỳ chỉnh
 
-If you have reasons for preferring not to use rustup.rs, please see [the Rust
-installation page](https://www.rust-lang.org/install.html) for other options.
+Nếu bạn muốn tuỳ chỉnh trong quá trình cài đặt Rust thì tham khảo tại [Các tuỳ chỉnh khi cặt đặt Rust](https://www.rust-lang.org/install.html).
 
-### Uninstalling
+### Gỡ cài đặt
 
-Uninstalling Rust is as easy as installing it. From your shell, run
-the uninstall script:
+Việc gỡ cài đặt Rust cũng đơn giản như cài đặt vậy. Từ termial gõ:
 
 ```text
 $ rustup self uninstall
 ```
 
-### Troubleshooting
+### Xử lý khi gặp phải vấn đề
 
-If you've got Rust installed, you can open up a shell, and type this:
+Nếu bạn đã cài Rust, thì gõ lệnh sau:
 
 ```text
 $ rustc --version
 ```
 
-You should see the version number, commit hash, and commit date in a format
-similar to this for the latest stable version at the time you install:
+Bạn sẽ thấy phiên bản, mã commit, và và ngày commit như là ví dụ phiên bản ví dụ dưới:
 
 ```text
 rustc x.y.z (abcabcabc yyyy-mm-dd)
 ```
 
-If you see this, Rust has been installed successfully!
-Congrats!
+Nếu bạn nhìn thấy dòng trên, thì chúc mừng bạn đã cài đặt Rust thành công!
 
-If you don't and you're on Windows, check that Rust is in your `%PATH%` system
-variable.
+Bạn là người dùng Window và bạn không thấy được như trên thì kiểm tra lại Rust 
+đã tồn trong biến môi trường `%PATH%` chưa.
 
-If it still isn't working, there are a number of places where you can get help.
-The easiest is [the #rust IRC channel on irc.mozilla.org][irc]<!-- ignore -->,
-which you can access through [Mibbit][mibbit]. Go to that address, and you'll
-be chatting with other Rustaceans (a silly nickname we call ourselves) who can
-help you out. Other great resources include [the user’s forum][users] and
-[Stack Overflow][stackoverflow].
+Nếu bạn đã làm tất cả những bước trên nhưng vẫ không giải quyết được vấn đề thì dưới đây 
+là một số nơi có thể giúp bạn giải quyết được vấn đề.
+Vào kênh Rust ở IRC [the #rust IRC channel on irc.mozilla.org][irc]<!-- ignore -->,
+thông qua [Mibbit][mibbit]. Bạn sẽ tìm các Rustaceans để giúp bạn. Một nơi tốt khác là
+[Diễn đàn][users] và [Stack Overflow][stackoverflow]. Nếu ở Việt nam bạn có thể tham gia vào [Google groups][google_groups_vn]
 
 [irc]: irc://irc.mozilla.org/#rust
 [mibbit]: http://chat.mibbit.com/?server=irc.mozilla.org&channel=%23rust
 [users]: https://users.rust-lang.org/
 [stackoverflow]: http://stackoverflow.com/questions/tagged/rust
+[google_groups_vn]: http://groups.rust-lang.vn
 
-### Local documentation
+### Tài liệu
 
-The installer also includes a copy of the documentation locally, so you can
-read it offline. Run `rustup doc` to open the local documentation in your
-browser.
+Khi cài đặt thì Rust sẽ mặc định sẽ sinh ra cho bạn những tài liệu cần thiết. 
+Gõ `rustup doc` để xem tài liệu trên trình duyệt.
 
-Any time there's a type or function provided by the standard library and you're
-not sure what it does, use the API documentation to find out!
+Bạn có thể tra cứu bất kỳ API nào về các thư viện chuẩn.
