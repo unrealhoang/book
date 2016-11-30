@@ -28,4 +28,4 @@ well as how they work behind the scenes.
 This book is open source. If you find an error, please don’t hesitate to file an
 issue or send a pull request [on GitHub].
 
-[on GitHub]: https://github.com/rust-lang/book
+[on GitHub]: https://github.com/rust-vietnam/rust-programming-language-book 
