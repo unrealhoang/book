@@ -4,7 +4,7 @@
 
 - [Giới thiệu](ch01-00-introduction.md)
     - [Cài đặt](ch01-01-installation.md)
-    - [Hello, World!]()
+    - [Hello, World!](ch01-02-hello-world.md)
 
 - [Guessing Game Tutorial]()
 

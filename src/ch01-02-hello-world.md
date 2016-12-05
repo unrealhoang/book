@@ -1,23 +1,20 @@
-## Hello, World!
+## Hello, world
 
-Now that you have Rust installed, let’s write your first Rust program. It's
-traditional when learning a new language to write a little program to print the
-text “Hello, world!” to the screen, and in this section, we'll follow that
-tradition.
+Khi đã cài Rust xong, bước tiếp theo là viết một chương trình đơn giản.
+Cách truyền thống để học một ngôn ngữ mới là in ra dòng chữ "Hello, world!" ở màn hình,
+trong phần này, chúng ta sẽ học theo cách truyền thống đó.
 
-> Note: This book assumes basic familiarity with the command line. Rust itself
-> makes no specific demands about your editing, tooling, or where your code
-> lives, so if you prefer an IDE to the command line, feel free to use your
-> favorite IDE.
 
-### Creating a Project File
+> Ghi chú: Bạn cần có chút kiến thức về command line và bạn có thể chọn bất cứ
+công cụ nào để lập trình Rust.
 
-First, make a file to put your Rust code in. Rust doesn't care where your code
-lives, but for this book, we'd suggest making a *projects* directory in your
-home directory and keeping all your projects there. Open a terminal and enter
-the following commands to make a directory for this particular project:
+### Tạo project
 
-Linux and Mac:
+Bạn có thể không cần phải tạo project, nhưng chúng tôi đề nghị bạn nên tạo nó,
+để thuận tiện cho việc quản lý code, Rust không quan tâm việc bạn đặt code ở đâu.
+Mở terminal và làm theo các bước để tạo một project:
+
+Linux và Mac:
 
 ```text
 $ mkdir ~/projects
@@ -35,14 +32,13 @@ Windows:
 > cd hello_world
 ```
 
-### Writing and Running a Rust Program
+### Bắt đầu viết chương trình đầu tiên
 
-Next, make a new source file and call it *main.rs*. Rust files always end with
-the *.rs* extension. If you’re using more than one word in your filename, use
-an underscore to separate them. For example, you'd use *hello_world.rs* rather
-than *helloworld.rs*.
+Tạo một file mới đặt tên là *main.rs*. File Rust luôn luôn có phần đuôi là *rs*. 
+Nếu bạn muốn đặt tên file với nhiều từ thì dùng `_` để tách chúng. 
+Ví dụ bạn đặt tên file là *hello_world.rs* hơn là *helloworld.rs*.
 
-Now open the *main.rs* file you just created, and type the following code:
+Bạn mở file *main.rs* và thêm đoạn code sau:
 
 <span class="filename">Filename: main.rs</span>
 
@@ -52,8 +48,7 @@ fn main() {
 }
 ```
 
-Save the file, and go back to your terminal window. On Linux or OSX, enter the
-following commands:
+Lưu file và quay trở lại cửa sổ dòng lệnh. Đối với Linux và Mac, thực hiện lệnh sau :
 
 ```text
 $ rustc main.rs
@@ -61,15 +56,15 @@ $ ./main
 Hello, world!
 ```
 
-On Windows, just replace `./main` with `.\main.exe`. Regardless of your
-operating system, you should see the string `Hello, world!` print to the
-terminal. If you did, then congratulations! You've officially written a Rust
-program. That makes you a Rust programmer! Welcome.
+Đối với Window, thay `./main` bằng `.\main.exe`. Không phụ thuộc vào hệ điều hành của bạn, bạn sẽ thấy
+dòng chữ `Hello, world!` được hiện ra ở terminal. Nếu bạn làm được điều đó, xin chúc mừng! 
+Bạn đã viết được một chương trình ở Rust rồi đấy. Điều đó đã làm cho bạn trở thành
+một Rust programmer, haha.
 
-### Anatomy of a Rust Program
+### Cấu trúc của một chương trình Rust
 
-Now, let’s go over what just happened in your "Hello, world!" program in
-detail. Here's the first piece of the puzzle:
+Bây giờ chúng ta sẽ cùng phân tích cấu trúc của một chương trình Rust sẽ bao gồm những gì.
+Hãy nhìn những dòng code dưới đây:
 
 ```rust
 fn main() {
@@ -77,133 +72,116 @@ fn main() {
 }
 ```
 
-These lines define a *function* in Rust. The `main` function is special: it's
-the first thing that is run for every executable Rust program. The first line
-says, “I’m declaring a function named `main` that takes no arguments and
-returns nothing.” If there were arguments, they would go inside the parentheses,
-`(` and `)`.
+Đây là những dòng code định nghĩa một *functions* ở Rust. Hàm `main` là một hàm đặc biệt: nó là hàm
+chạy đầu tiên đối với các chương trình dạng *executable*. Dòng đầu tiên chỉ ra rằng
+, “Tôi khai báo một hàm tên là `main`, hàm này không nhận bất kỳ tham số nào
+và không có return lại data.” Nếu có thêm tham số, thì các tham số này phải được đặt trong,
+`(` và `)`.
 
-Also note that the function body is wrapped in curly braces, `{` and `}`. Rust
-requires these around all function bodies. It's considered good style to put
-the opening curly brace on the same line as the function declaration, with one
-space in between.
+Phần xử lý của một function phải được đặt trong cặp dấu, `{` và `}`. Để được xem như một hàm tốt về mặt trình bày
+thì dấu `{` phải được đặt cùng hàng với tên hàm, và có một khoản cách giữa tên hàm và `{`.
 
-Inside the `main` function:
+Trong hàm `main`:
 
 ```rust
     println!("Hello, world!");
 ```
 
-This line does all of the work in this little program: it prints text to the
-screen. There are a number of details to notice here. The first is that Rust
-style is to indent with four spaces, not a tab.
+Với một chương trình đơn giản thì dòng code trên đã chứa đừng hết nội dùng của chương trình, cụ thể:
+Nó in ra dòng text ở màn hình. Ở đây có một vài điểm lưu ý. Đầu tiên, nói về mặt coding style thì Rust dùng
+`tab space` để thụt vào, không dùng `tab`.
 
-The second important part is `println!`. This is calling a Rust *macro*,
-which is how metaprogramming is done in Rust. If it were calling a function
-instead, it would look like this: `println` (without the `!`). We'll discuss
-Rust macros in more detail in Chapter 24, but for now you just need to know
-that when you see a `!` that means that you’re calling a macro instead of a
-normal function.
+Điều quan trọng thứ 2 là `println!`. Đây được gọi là *macro* ở Rust. Nếu gọi đây là một hàm, 
+thì nó sẽ giống như vầy: `println` (không có `!`). Chúng ta sẽ quay trở lại thảo luận về *macro* ở chương 24, 
+nhưng ở thời điểm hiện tại thì bạn nên hiểu là nếu bạn thấy `!` nghĩa là bạn đang gọi một *macro* hơn là một function.
 
-Next is `"Hello, world!"` which is a *string*. We pass this string as an
-argument to `println!`, which prints the string to the screen. Easy enough!
+Kế tiếp là `"Hello, world!"`, đây là một *string*. Chúng ta truyền chuỗi này như là một tham số cho `println!`, 
+để in ra dòng text trên màn hình. Quá đơn giản!
 
-The line ends with a semicolon (`;`). The `;` indicates that this expression is
-over, and the next one is ready to begin. Most lines of Rust code end with a
-`;`.
+Chúng ta sẽ kết thúc một dòng code bằng (`;`). `;` để chỉ ra rằng dòng lệnh này đã kết thúc,
+dòng lệnh kế tiếp sẽ được thực thi. Hầu hết để kết thúc dòng lệnh ở Rust ta dùng `;`.
 
-### Compiling and Running Are Separate Steps
+### Biên dịch và chạy chương trình
 
-In "Writing and Running a Rust Program", we showed you how to run a newly
-created program. We'll break that process down and examine each step now.
+Trong phần trước chúng ta đã biết cách tạo một project đơn giản.
+Kế tiếp chúng ta lần lượt tìm hiểu các bước đơn giản để biện dịch một chương trình ở Rust.
 
-Before running a Rust program, you have to compile it. You can use the Rust
-compiler by entering the `rustc` command and passing it the name of your source
-file, like this:
+Trước khi chạy được chương trình Rust, bắt buộc ta phải biên dịch nó. Bạn có thể dùng công cụ compiler 
+của Rust (`rustc`) và thực hiện dòng lệnh như dưới đây:
 
 ```text
 $ rustc main.rs
 ```
 
-If you come from a C or C++ background, you'll notice that this is similar to
-`gcc` or `clang`. After compiling successfully, Rust should output a binary
-executable, which you can see on Linux or OSX by entering the `ls` command in
-your shell as follows:
+Nếu bạn đã từng làm việc với `C` hoặc `C++` thì nó tương tự với 
+`gcc` hoặc `clang`. Sau khi biên dịch thành công, Rust sẽ output ra một file binary
+executable, đối với Linux hoặc Mac bạn có thể dùng câu lệnh `ls` ở shell như dòng code dưới:
 
 ```text
 $ ls
 main  main.rs
 ```
 
-On Windows, you'd enter:
+Nếu dùng Windows:
 
 ```cmd
-> dir /B %= the /B option says to only show the file names =%
+> dir /B %= (Tuỳ chọn /B chỉ hiển thị tên file)
 main.exe
 main.rs
 ```
 
-This shows we have two files: the source code, with the *.rs* extension, and the
-executable (*main.exe* on Windows, *main* everywhere else). All that's left to
-do from here is run the *main* or *main.exe* file, like this:
+Cách trên sẽ hiện thị cho chúng ta thấy được 2 file: source code, có đuôi mở rộng là *.rs*, và 
+chương trình thực hiện(*main.exe* đối với Windows, *main* đối với các hệ điều hành khác).
+Các công việc cần làm bây giờ là chạy file *main* hoặc *main.exe*, giống như cách dưới đây:
 
 ```text
-$ ./main  # or .\main.exe on Windows
+$ ./main  # hoặc .\main.exe đối với windows
 ```
 
-If *main.rs* were your "Hello, world!" program, this would print `Hello,
-world!` to your terminal.
+Nếu trong file *main.rs* chương trình của bạn in ra dòng chữ là "Hello, world!", thì bạn sẽ thấy
+dòng chữ `Hello, world!` ngay trên terminal của bạn.
 
-If you come from a dynamic language like Ruby, Python, or JavaScript, you may
-not be used to compiling and running a program being separate steps. Rust is an
-*ahead-of-time compiled* language, which means that you can compile a program,
-give it to someone else, and they can run it even without having Rust
-installed. If you give someone a `.rb`, `.py`, or `.js` file, on the other
-hand, they need to have a Ruby, Python, or JavaScript implementation installed
-(respectively), but you only need one command to both compile and run your
-program. Everything is a tradeoff in language design.
+Nếu bạn đã từng biết qua Ruby, Python, hoặc JavaScript, bạn không phải làm các bước compile cực khổ này. 
+Rust là một ngôn ngữ có đặc điểm *ahead-of-time compiled*, nghĩa là bạn có thể compile một chương trình,
+và đưa nó qua một môi trường khác, và bạn có thể chạy chương trình đó mà không phải phụ thuộc vào việc đã cài đặt
+Rust hay chưa. Nếu bạn copy các file `.rb`, `.py`, hoặc `.js`, sang một môi trường khác, 
+thì cần phải có Ruby, Python, hoặc JavaScript phải được cài đặt, 
+nhưng bạn chỉ cần một dòng lệnh cho cả việc compile và chạy chương trình. 
+Tất cả mọi thứ điều có một sự lựa chọn phụ hợp khi thiết kế ngôn ngữ đó.
 
-Just compiling with `rustc` is fine for simple programs, but as your project
-grows, you'll want to be able to manage all of the options your project has
-and make it easy to share your code with other people and projects. Next, we'll
-introduce you to a tool called Cargo, which will help you write real-world Rust
-programs.
+Dùng `rustc` để compile đối với những chương trình đơn giản là một lựa chọn hợp lý, nhưng khi chương trình
+phức tạp, bạn muốn quản lý các tuỳ chỉnh của chương trình và muốn công việc chia sẽ với người khác
+trở nên đơn giản hơn. Phần kế tiếp chúng ta sẽ cùng tìm hiểu về một công cụ gọi là Cargo, và chúng ta sẽ dùng
+tool này để viết một chương trình đơn giản `Hello, world!`.
 
-## Hello, Cargo!
+## Xin chào, Cargo!
 
-Cargo is Rust’s build system and package manager, and Rustaceans use Cargo to
-manage their Rust projects because it makes a lot of tasks easier. For example,
-Cargo takes care of building your code, downloading the libraries your code
-depends on, and building those libraries. We call libraries your code needs
-*dependencies*.
+Cargo là một công cụ dùng để quản lý các gói và là một công cụ dùng để build các chương trình của Rust, 
+và Rustaceans sử dụng Cargo để quản lý các project vì đặc điểm dể sử dụng. Ví dụ,
+Cargo được dùng để build code, tự động tải về các thư viện cần thiết, và tiến hành compile các thư viện đó. 
+Chúng ta gọi các thư viện phụ thuộc vào code là *dependencies*.
 
-The simplest Rust programs, like the one we've written so far, don’t have any
-dependencies, so right now, you'd only be using the part of Cargo that can take
-care of building your code. As you write more complex Rust programs, you’ll
-want to add dependencies, and if you start off using Cargo, that will be a lot
-easier to do.
+Chương trình đơn giản nhất ở Rust, giống như chương trình chúng ta đã xây dựng ở phần trên, không có
+bất kỳ dependencies nào, cho nên, chúng ta chỉ sử dụng một phần chức năng của Cargo để xây dựng chương trình.
+Nhưng khi bạn viết một chương trình phức tạp, bạn sẽ cần add thêm nhiều dependencies, và nếu bạn dùng Cargo,
+điều đó thật đơn giản để thực hiện.
 
-As the vast, vast majority of Rust projects use Cargo, we will assume that
-you’re using it for the rest of the book. Cargo comes installed with Rust
-itself, if you used the official installers as covered in the Installation
-chapter. If you installed Rust through some other means, you can check if you
-have Cargo installed by typing the following into your terminal:
-
+Phần lớn những chương trình viết bằng Rust sử dụng Cargo, nên chúng tôi mặc định bạn sẽ dùng Cargo trong suốt quá trình
+còn lại. Cargo sẽ được cài mặc định trong quá trình cài Rust, nếu như bạn làm theo các bước hướng dẫn cài đặt ở phần Cài đặt. 
+Nếu bạn cài đặt Rust theo một cách khác nào đó, bạn có thể kiểm tra lại Cargo đã được cài đặt hay chưa bằng dòng lệnh dưới đây:
 ```text
 $ cargo --version
 ```
 
-If you see a version number, great! If you see an error like `command not
-found`, then you should look at the documentation for your method of
-installation to determine how to install Cargo separately.
+Nếu bạn thấy được phiên bản của Cargo, thật tuyệt vời! Nếu bạn thấy `command not
+found`, kế tiếp bạn cần làm theo các bước hướng dẫn ở phần cài đặt để cài Cargo.
 
-### Creating a Project with Cargo
+### Tạo project với Cargo
 
-Let's create a new project using Cargo and look at how it differs from our
-project in `hello_world`. Go back to your projects directory (or wherever you
-decided to put your code):
+Bây giờ chúng ta sẽ cùng tạo một project bằng Cargo và so sánh sự khác biệt với project `hello_world` lúc trước. 
+Trở lại thư mục projects (hoặc bất kỳ thư mục nào bạn muốn đặt code):
 
-Linux and Mac:
+Linux và Mac:
 
 ```text
 $ cd ~/projects
@@ -215,30 +193,25 @@ Windows:
 > cd %USERPROFILE%\projects
 ```
 
-And then on any operating system run:
+Và trên mọi hệ điều hành chạy dòng lệnh:
 
 ```text
 $ cargo new hello_cargo --bin
 $ cd hello_cargo
 ```
 
-We passed the `--bin` argument to `cargo new` because our goal is to make an
-executable application, as opposed to a library. Executables are binary
-executable files often called just *binaries*. We've given `hello_cargo`
-as the name for our project, and Cargo creates its files in a directory
-of the same name that we can then go into.
+Chúng ta truyền thêm tham số `--bin` đối với `cargo new` bởi vì mục chúng ta muốn tạo chương trình dạng
+executable, hơn là tạo một thư viện. Các file executable hay còn được gọi là *binaries*. 
+Chúng ta đặt tên project là `hello_cargo`, và Cargo sẽ tạo các file trong thư mục cùng tên với tên project.
 
-If we list the files in the *hello_cargo* directory, we can see that Cargo has
-generated two files and one directory for us: a *Cargo.toml* and a *src*
-directory with a *main.rs* file inside. It has also initialized a new git
-repository in the *hello_cargo* directory for us, along with a *.gitignore*
-file; you can change this to use a different version control system, or no
-version control system, by using the `--vcs` flag.
+Nếu chúng ta mở thư muc *hello_cargo*, chúng ta sẽ thấy Cargo sẽ tự động tạo 2 files và một thư muc: 
+file *Cargo.toml* và thư mục *src* chứa file *main.rs*. Cargo cũng sẽ khơi tạo thư mục git trong thư mục 
+*hello_cargo*, cùng với file *.gitignore*; bạn có thể thay đổi phần quản lý source (source version control), 
+hoặc giữ mặc định bằng cách sử dụng tuỳ chọn `--vcs`.
 
-Open up *Cargo.toml* in your text editor of choice. It should look something
-like this:
+Mở file *Cargo.toml* bằng một công cụ chỉnh sửa text. Bạn sẽ nhìn thấy nội dụng file như dưới đây:
 
-<span class="filename">Filename: Cargo.toml</span>
+<span class="filename">Tên file: Cargo.toml</span>
 
 ```toml
 [package]
@@ -249,29 +222,20 @@ authors = ["Your Name <you@example.com>"]
 [dependencies]
 ```
 
-This file is in the [*TOML*][toml]<!-- ignore --> (Tom's Obvious, Minimal
-Language) format. TOML is similar to INI but has some extra goodies and is used
-as Cargo’s configuration format.
+File này có định dạng [*TOML*][toml]<!-- ignore --> (Tom's Obvious, Minimal
+Language). TOML giống như INI nhưng có thêm một số tính năng mới và được dùng
+như là format của các cấu hình trong Cargo.
 
 [toml]: https://github.com/toml-lang/toml
 
-The first line, `[package]`, is a section heading that indicates that the
-following statements are configuring a package. As we add more information to
-this file, we’ll add other sections.
+Dòng đầu tiên, `[package]`, là tiêu đề của các cấu hình project. Chúng ta sẽ quay trở lại kỹ hơn
+nhưng phần này trong chương sau.
 
-The next three lines set the three bits of configuration that Cargo needs to
-see in order to know that it should compile your program: its name, what
-version it is, and who wrote it. Cargo gets your name and email information
-from your environment. If it’s not correct, go ahead and fix that and save the
-file.
+Những dòng kế tiếp là thông tin cấu hình của project.
 
-The last line, `[dependencies]`, is the start of a section for you to list any
-*crates* (which is what we call packages of Rust code) that your project will
-depend on so that Cargo knows to download and compile those too. We won't need
-any other crates for this project, but we will in the guessing game tutorial in
-the next chapter.
+Dòng cuối cùng là, `[dependencies]`, quy định các gói được dùng trong chương trình.
 
-Now let's look at *src/main.rs*:
+Nhìn file *src/main.rs*:
 
 <span class="filename">Filename: src/main.rs</span>
 
@@ -281,63 +245,33 @@ fn main() {
 }
 ```
 
-Cargo has generated a "Hello World!" for you, just like the one we wrote
-earlier! So that part is the same. The differences between our previous project
-and the project generated by Cargo that we've seen so far are:
+Cargo sẽ tự động sinh ra cho ta đoạn code trên, nó giống như những dòng code chúng ta đã viết lúc trước! 
+Sự khác nhau giữ project dùng Cargo và chúng ta tự khởi tạo:
 
-- Our code goes in the *src* directory
-- The top level contains a *Cargo.toml* configuration file
+- Code được đặt trong thư mục *src*.
+- File *Cargo.toml* chứa tất cả các cấu hình cho project.
 
-Cargo expects your source files to live inside the *src* directory so that the
-top-level project directory is just for READMEs, license information,
-configuration files, and anything else not related to your code. In this way,
-using Cargo helps you keep your projects nice and tidy. There's a place for
-everything, and everything is in its place.
+### Building và Running một project Cargo
 
-If you started a project that doesn't use Cargo, as we did with our project in
-the *hello_world* directory, you can convert it to a project that does use
-Cargo by moving your code into the *src* directory and creating an appropriate
-*Cargo.toml*.
-
-### Building and Running a Cargo Project
-
-Now let's look at what's different about building and running your Hello World
-program through Cargo! To do so, enter the following commands:
+Thực hiện dòng lệnh dưới đây:
 
 ```text
 $ cargo build
    Compiling hello_cargo v0.1.0 (file:///projects/hello_cargo)
 ```
 
-This should have created an executable file in *target/debug/hello_cargo* (or
-*target\debug\hello_cargo.exe* on Windows), which you can run with this command:
+Dòng lệnh này sẽ tự động tạo cho chúng ta một file executable *target/debug/hello_cargo* (hoặc
+*target\debug\hello_cargo.exe* ở Windows), bạn có thể chạy file đó ở terminal:
 
 ```text
-$ ./target/debug/hello_cargo # or .\target\debug\hello_cargo.exe on Windows
+$ ./target/debug/hello_cargo # hoặc .\target\debug\hello_cargo.exe ở Windows
 Hello, world!
 ```
 
-Bam! If all goes well, `Hello, world!` should print to the terminal once more.
+Bam! Chúng ta sẽ thấy dòng chữ `Hello, world!` ở terminal.
 
-Running `cargo build` for the first time also causes Cargo to create a new file
-at the top level called *Cargo.lock*, which looks like this:
-
-<span class="filename">Filename: Cargo.lock</span>
-
-```toml
-[root]
-name = "hello_cargo"
-version = "0.1.0"
-```
-
-Cargo uses the *Cargo.lock* to keep track of dependencies in your application.
-This project doesn't have dependencies, so the file is a bit sparse.
-Realistically, you won't ever need to touch this file yourself; just let Cargo
-handle it.
-
-We just built a project with `cargo build` and ran it with
-`./target/debug/hello_cargo`, but we can also use `cargo run` to compile
-and then run:
+Chúng ta vừa build project bằng cách dùng `cargo build` và chạy nó bằng
+`./target/debug/hello_cargo`, nhưng chúng ta có thể dùng dòng lệnh `cargo run` để compile và run:
 
 ```text
 $ cargo run
@@ -345,61 +279,14 @@ $ cargo run
 Hello, world!
 ```
 
-Notice that this time, we didn't see the output telling us that Cargo was
-compiling `hello_cargo`. Cargo figured out that the files haven’t changed, so
-it just ran the binary. If you had modified your source code, Cargo would have
-rebuilt the project before running it, and you would have seen something like
-this:
+Chúng ta thấy một số điểm khác biệt ở đây:
 
-```text
-$ cargo run
-   Compiling hello_cargo v0.1.0 (file:///projects/hello_cargo)
-     Running `target/debug/hello_cargo`
-Hello, world!
-```
+- Thay vì dùng `rustc`, build project bằng cách dùng `cargo build` ( hoặc build và run bằng `cargo run`).
+-  Thay vì output kết quả cùng với thư mục hiện tại thì Cargo sẽ output ở thư mục *target/debug*.
 
-So a few more differences we've now seen:
+Điểm đặc biệt là khi dùng Cargo chúng ta không phải quan tâm đến hệ điều hành đang dùng là gì.
 
-- Instead of using `rustc`, build a project using `cargo build` (or build and
-  run it in one step with `cargo run`)
-- Instead of the result of the build being put in the same directory as our
-  code, Cargo will put it in the *target/debug* directory.
-
-The other advantage of using Cargo is that the commands are the same no matter
-what operating system you're on, so at this point we will no longer be
-providing specific instructions for Linux and Mac versus Windows.
-
-### Building for Release
-
-When your project is finally ready for release, you can use `cargo build
---release` to compile your project with optimizations. This will create an
-executable in *target/release* instead of *target/debug*. These optimizations
-make your Rust code run faster, but turning them on makes your program take
-longer to compile. This is why there are two different profiles: one for
-development when you want to be able to rebuild quickly and often, and one for
-building the final program you’ll give to a user that won't be rebuilt and
-that we want to run as fast as possible. If you're benchmarking the running
-time of your code, be sure to run `cargo build --release` and benchmark with
-the executable in *target/release*.
-
-### Cargo as Convention
-
-With simple projects, Cargo doesn't provide a whole lot of value over just
-using `rustc`, but it will prove its worth as you continue. With complex
-projects composed of multiple crates, it’s much easier to let Cargo coordinate
-the build. With Cargo, you can just run `cargo build`, and it should work the
-right way. Even though this project is simple, it now uses much of the real
-tooling you’ll use for the rest of your Rust career. In fact, you can get
-started with virtually all Rust projects you want to work
-on with the following commands:
-
-```text
-$ git clone someurl.com/someproject
-$ cd someproject
-$ cargo build
-```
-
-> Note: If you want to look at Cargo in more detail, check out the official
-[Cargo guide], which covers all of its features.
+> Chú ý: Nếu bạn muốn tìm hiểu chi tiết về cách dùng của Cargo thì tham khảo tại
+[Cargo guide], chứa đầy đủ các hướng dẫn về Cargo.
 
 [Cargo guide]: http://doc.crates.io/guide.html
