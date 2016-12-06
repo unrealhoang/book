@@ -1,34 +1,38 @@
 ## Vectors
 
-The first type we'll look at is `Vec<T>`, also known as a *vector*. Vectors
-allow us to store more than one value in a single data structure that puts all
-the values next to each other in memory. Vectors can only store values of the
-same type. They are useful in situations where you have a list of items, such
-as the lines of text in a file or the prices of items in a shopping cart.
+Kiểu dữ liệu đầu tiên mà chúng ta tìm hiểu là `Vec<T>`, còn gọi là *vector*. Vector
+sẽ cho phép chúng ta lưu trữ nhiều hơn một giá trị trong một cấu trúc dữ liệu bằng cách
+xếp tất cả các giá trị nằm liền kề nhau trong bộ nhớ. Vector chỉ có thể lưu trữ dữ liệu
+của cùng 1 kiểu. Nó rất hữu dụng trong tình huống bạn có một loạt các phần tử, chẳng hạn
+như các dòng chuỗi (line of string) trong một file, hoặc giá của từng món hàng trong một cái
+giỏ hàng.
 
-### Creating a New Vector
+### Tạo mới một Vector
 
-To create a new, empty vector, we can call the `Vec::new` function:
+Để tạo mới một vector rỗng, chúng ta có thể gọi hàm `Vec::new`:
 
 ```rust
 let v: Vec<i32> = Vec::new();
 ```
 
-Note that we added a type annotation here. Since we aren't inserting any values
-into this vector, Rust doesn't know what kind of elements we intend to store.
-This is an important point. Vectors are homogenous: they may store many values,
-but those values must all be the same type. Vectors are implemented using
-generics, which Chapter 10 will cover how to use in your own types. For now,
-all you need to know is that the `Vec` type provided by the standard library
-can hold any type, and when a specific `Vec` holds a specific type, the type
-goes within angle brackets. We've told Rust that the `Vec` in `v` will hold
-elements of the `i32` type.
+Lưu ý rằng chúng ta để chỉ định kiểu (type annotation) ở đây. Bởi vì chúng ta không
+nhét (insert) gì vào vector này, Rust không biết kiểu phần tử mà chúng ta dự định
+lưu là gì. Đây là một điểm quan trọng. Vector là đồng nhất: chúng có thể lưu trữ
+nhiều giá trị, nhưng những giá trị đó phải là cùng 1 kiểu dữ liệu. Vector được
+cài đặt (implemented) sử dụng Generics, sẽ được tìm hiểu sau ở chương 10 để dùng
+cho kiểu dữ liệu của chính chúng ta. Bây giờ, tất cả những gì bạn cần biết là kiểu
+`Vec` được cung cấp bởi thư viện chuẩn (standard library) có thể giữ được bất kì kiểu
+dữ liệu nào, và khi muốn chỉ định kiểu dữ liệu cho `Vec` thì chúng ta đưa kiểu dữ liệu
+của nó vào bên trong ngoặc `<>`. Trong ví dụ trên, chúng ta đã báo với Rust là `Vec`
+`v` sẽ giữ những phần tử thuộc kiểu `i32`.
 
-In real code, Rust can infer the type of value we want to store once we insert
-values, so you rarely need to do this type annotation. It's more common to
-create a `Vec` that has initial values, and Rust provides the `vec!` macro for
-convenience. The macro will create a new `Vec` that holds the values we give
-it. This will create a new `Vec<i32>` that holds the values `1`, `2`, and `3`:
+Trong code thực tế, Rust có thể suy luận ra kiểu dữ liệu chúng ta muốn lưu trữ
+một khi chúng ta `insert` giá trị vào, nên rất hiếm khi bạn phải chỉ định kiểu.
+Trong code cũng thường có những lúc chúng ta muốn khởi tạo những giá trị ban đầu
+cho `Vec`, Rust cung cấp cho chúng ta macro `vec!` để làm chuyện này một cách tiện
+lợi hơn. Macro này sẽ tạo một `Vec` mới và đưa vào những giá trị mà chúng ta cũng
+cấp cho nó. Ví dụ sau đây sẽ tạo mới một `Vec<i32>` mà giữ những phần tử `1`, `2`,
+và `3`:
 
 ```rust
 let v = vec![1, 2, 3];
