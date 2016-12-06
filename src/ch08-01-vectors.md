@@ -38,13 +38,13 @@ và `3`:
 let v = vec![1, 2, 3];
 ```
 
-Because we've given initial `i32` values, Rust can infer that the type of `v`
-is `Vec<i32>`, and the type annotation isn't necessary. Let's look at how to
-modify a vector next.
+Vì chúng ta đưa vào những giá trị `i32` ban đầu, Rust có thể suy luận ra kiểu
+dữ liệu của `v` là `Vec<ì>`, và chỉ định kiểu là không cần thiết. Tiếp theo hãy
+cùng xem cách để thay đổi 1 vector.
 
-### Updating a Vector
+### Thay đổi một Vector
 
-To create a vector then add elements to it, we can use the `push` method:
+Để tạo ra một vector và thêm phần tử vào nó, chúng ta có thể dùng hàm `push`:
 
 ```rust
 let mut v = Vec::new();
@@ -55,38 +55,38 @@ v.push(7);
 v.push(8);
 ```
 
-As with any variable as we discussed in Chapter 3, if we want to be able to
-change its value, we need to make it mutable with the `mut` keyword. The
-numbers we place inside are all `i32`s, and Rust infers this from the data, so
-we don't need the `Vec<i32>` annotation.
+Giống như bất kì biến nào mà chúng ta đã thảo luận trong Chương 3, nếu chúng ta muốn
+thay đổi giá trị của chúng, chúng ta phải khai báo nó thay đổi được bằng từ khoá
+`mut`. Những số chúng ta cho vào đều là `i32`, và Rust suy luận được điều này từ data,
+nên chúng ta không cần phải khai báo kiểu `Vec<i32>`.
 
-### Dropping a Vector Drops its Elements
+### Giải phóng một Vector sẽ giải phóng những phần tử của nó
 
-Like any other `struct`, a vector will be freed when it goes out of scope:
+Giống như bất kì `struct` nào khác, vector sẽ được giải phóng khi nó ra khỏi phạm vi:
 
 ```rust
 {
     let v = vec![1, 2, 3, 4];
 
-    // do stuff with v
+    // làm gì đó với v
 
-} // <- v goes out of scope and is freed here
+} // <- v ra khỏi phạm vi và bị giải phóng ở đây.
 ```
 
-When the vector gets dropped, all of its contents will also be dropped, meaning
-those integers it holds will be cleaned up. This may seem like a
-straightforward point, but can get a little more complicated once we start to
-introduce references to the elements of the vector. Let's tackle that next!
+Khi vector bị giải phóng, tất cả nội dung của nó cũng sẽ bị giải phóng, có nghĩa
+những số nguyên nó lưu giữ cũng bị dọn dẹp. Bạn thấy có vẻ rất dễ hiểu ở đây,
+nhưng nó có thể trở nên phức tạp hơn một chút khi chúng ta bắt đầu cho tham chiếu
+vào thành phần tử của vector. Hãy cùng giải quyết vấn đề đó tiếp theo!
 
-### Reading Elements of Vectors
+### Đọc phần tử của Vector
 
-Now that you know how to create, update, and destroy vectors, knowing how to
-read their contents is a good next step. There are two ways to reference a
-value stored in a vector. In the examples, we've annotated the types of the
-values that are returned from these functions for extra clarity.
+Bây giờ bạn đã biết cách để khởi tạo, thay đổi, và giải phóng vector, bước tiếp
+theo sẽ là biết cách để đọc nội dung của nó. Có 2 cách để tham chiếu một giá trị
+được lưu trữ trong vector. Trong những ví dụ, chúng ta sẽ khai báo kiểu dữ liệu
+của các giá trị được trả về từ các hàm để dễ đọc hơn.
 
-This example shows both methods of accessing a value in a vector either with
-indexing syntax or the `get` method:
+Ví dụ sau đây sử dụng cả 2 cách để truy cập dữ liệu trong 1 vector là dùng cú pháp
+chỉ mục hoặc dùng hàm `get`:
 
 ```rust
 let v = vec![1, 2, 3, 4, 5];
@@ -95,17 +95,16 @@ let third: &i32 = &v[2];
 let third: Option<&i32> = v.get(2);
 ```
 
-There are a few things to note here. First, that we use the index value of `2`
-to get the third element: vectors are indexed by number, starting at zero.
-Second, the two different ways to get the third element are: using `&` and
-`[]`s, which gives us a reference, or using the `get` method with the index
-passed as an argument, which gives us an `Option<&T>`.
+Có vài điều cần lưu ý ở đây. Đầu tiên, chúng ta sử dụng giá trị chỉ mục `2` để
+lấy ra phần tử thứ 3: Vector được đánh chỉ mục bằng số, bắt đầu bằng 0.
+Thứ 2, hai cách khác nhau để lấy phần tử thứ 3 là: sử dụng `&` và `[]` sẽ trả về
+cho chúng ta một tham chiếu, hoặc sử dụng hàm `get` với chỉ mục được truyền vào
+tham số sẽ trả về cho chúng ta kiểu `Option<&T>`.
 
-The reason Rust has two ways to reference an element is so that you can choose
-how the program behaves when you try to use an index value that the vector
-doesn't have an element for. As an example, what should a program do if it has
-a vector that holds five elements then tries to access an element at index 100
-like this:
+Lý do Rust có 2 cách để tham chiếu 1 phần tử là để bạn có thể cách mà chương trình
+hoạt động khi bạn thử sử dụng 1 giá trị chỉ mục mà Vector không có phần tử tại đó.
+Để ví dụ, chương trình sẽ làm gì nếu nó có 1 vector giữ 5 phần tử và thử truy xuất
+phần tử tại chỉ mục 100 như sau:
 
 ```rust,should_panic
 let v = vec![1, 2, 3, 4, 5];
@@ -114,31 +113,30 @@ let does_not_exist = &v[100];
 let does_not_exist = v.get(100);
 ```
 
-When you run this, you will find that with the first `[]` method, Rust will
-cause a `panic!` when a non-existent element is referenced. This method would
-be preferable if you want your program to consider an attempt to access an
-element past the end of the vector to be a fatal error that should crash the
-program.
+Khi bạn chạy chương trình này, bạn sẽ thấy là với hàm `[]` đầu tiên, Rust sẽ
+bị `panic!` khi phần tử không tồn tại được truy xuất. Hàm này nên được dùng
+nếu bạn muốn chương trình của mình xem việc truy xuất phần tử sau phần tử cuối
+cùng của vector là nguy hiểm và cần phải crash chương trình ngay lập tức.
 
-When the `get` method is passed an index that is outside the array, it will
-return `None` without `panic!`ing. You would use this if accessing an element
-beyond the range of the vector will happen occasionally under normal
-circumstances. Your code can then have logic to handle having either
-`Some(&element)` or `None`, as we discussed in Chapter 6. For example, the
-index could be coming from a person entering a number. If they accidentally
-enter a number that's too large and your program gets a `None` value, you could
-tell the user how many items are in the current `Vec` and give them another
-chance to enter a valid value. That would be more user-friendly than crashing
-the program for a typo!
+Khi hàm `get` được truyền vào chỉ mục nằm ngoài mảng, nó sẽ trả về `None` và
+không bị `panic!`. Bạn nên xài nó nếu việc truy cập phần tử ngoài mảng là thường
+xuyên xảy ra trong trường hợp bình thường. Code của bạn phải có logic để xử lý
+hoặc có `Some(&element)` hoặc `None`, như chúng ta đã thảo luận trong Chương 6.
+Ví dụ, chỉ mục có thể đến từ người dùng nhập vào 1 số. Nếu họ lỡ nhập nhầm 1 số
+quá lớn vào chương trình của bạn trả ra `None`, bạn có thể báo với người dùng có
+bao nhiêu phần tử đang ở trong mảng và cho họ cơ hội khác để nhập vào giá trị
+đúng. Việc đó sẽ thân thiện với người dùng hơn là chương trình crash ngay mỗi khi
+nhập nhầm 1 số nào đó!
 
-#### Invalid References
+#### Tham chiếu không hợp lệ
 
-Once the program has a valid reference, the borrow checker will enforce the
-ownership and borrowing rules covered in Chapter 4 to ensure this reference and
-any other references to the contents of the vector stay valid. Recall the rule
-that says we can't have mutable and immutable references in the same scope.
-That rule applies in this example, where we hold an immutable reference to the
-first element in a vector and try to add an element to the end:
+Một khi chương trình có tham chiếu hợp lệ, borrow checker sẽ thi hành những luật
+ownership và borrowing đã được thảo luận trong Chương 4 để đảm bảo tham chiếu này
+và bất kì những tham chiếu nào khác đến nội dụng của vector đều ở trang thái hợp lệ.
+Nhắc lại luật nói rằng chúng ta không thể có tham chiếu thay đổi và tham chiếu chỉ đọc
+trong cùng 1 phạm vi (scope). Luật đó cũng áp dụng trong ví dụ sau đây, khi chúng ta
+giữ một tham chiếu chỉ đọc tới phần tử đầu tiên trong mảng và thử cho thêm phần tử vào
+cuối mảng:
 
 ```rust,ignore
 let mut v = vec![1, 2, 3, 4, 5];
@@ -148,48 +146,49 @@ let first = &v[0];
 v.push(6);
 ```
 
-Compiling this will give us this error:
+Biên dịch chương trình này sẽ đưa ra lỗi sau:
 
 ```text
 error[E0502]: cannot borrow `v` as mutable because it is also borrowed as immutable
   |
 4 | let first = &v[0];
   |              - immutable borrow occurs here
+                 - mượn tham chiếu chỉ đọc ở đây
 5 |
 6 | v.push(6);
   | ^ mutable borrow occurs here
+      mượn tham chiếu thay đổi ở đây
 7 | }
   | - immutable borrow ends here
+      tham chiếu chỉ đọc kết thúc ở đây
 ```
 
-This code might look like it should work: why should a reference to the first
-element care about what changes about the end of the vector? The reason why
-this code isn't allowed is due to the way vectors work. Adding a new element
-onto the end of the vector might require allocating new memory and copying the
-old elements over to the new space, in the circumstance that there isn't enough
-room to put all the elements next to each other where the vector was. In that
-case, the reference to the first element would be pointing to deallocated
-memory. The borrowing rules prevent programs from ending up in that situation.
+Đoạn code trên nhìn có vẻ nó nên hoạt động được: tại sao tham chiếu tới phần tử
+đầu tiên lại quan tâm tới thay đổi ở cuối của mảng? Lý do code này không hoạt động
+là vì cách vector hoạt động. Thêm phần tử mới vào cuối vector có thể cần phải
+cấp phát 1 phần bộ nhớ mới và copy những phần tử cũ lên vùng nhớ mới, trong trường
+hợp khi đã không còn đủ bộ nhớ để nhét tất cả các phần tử liền kề nhau nữa. Trong
+trường hợp đó, tham chiếu tới phần tử đầu tiên có thể là chỉ tới 1 vùng nhớ đã bị
+giải phóng. Luật mượn tham chiếu đã ngăn cản chương trình không bị rơi vào trường
+hợp đó.
 
-> Note: For more on this, see [The Nomicon][nomicon].
-
+> Ghi chú: Để biết thêm thông tin về vấn đề này, hãy xem [The Nomicon][nomicon].
 [nomicon]: https://doc.rust-lang.org/stable/nomicon/vec.html
 
 ### Using an Enum to Store Multiple Types
+### Sử dụng Enum để Lưu nhiều kiểu dữ liệu
 
-At the beginning of this chapter, we said that vectors can only store values
-that are all the same type. This can be inconvenient; there are definitely use
-cases for needing to store a list of things of different types. Luckily, the
-variants of an enum are all defined under the same enum type. When we need to
-store elements of a different type in a vector this scenario, we can define and
-use an enum!
+Vào đầu chương này, chúng ta đã nghiên cứu là vector chỉ có thể lưu trữ giá trị
+mà có cùng một kiểu dữ liệu. Điều này có thể gây khó chịu, chắc chắn sẽ có những
+trường hợp cần lưu 1 mảng các thứ có kiểu khác nhau. May mắn thay, các kiểu con
+của enum đều được định nghĩa dưới cùng 1 kiểu enum. Khi chung ta cần lưu trữ phần
+tử với những kiểu dữ liệu khác nhau, chúng ta có thể định nghĩa và sử dụng enum!
 
-For example, let's say we want to get values from a row in a spreadsheet, where
-some of the columns in the row contain integers, some floating point numbers,
-and some strings. We can define an enum whose variants will hold the different
-value types, and then all of the enum variants will be considered the same
-type, that of the enum. Then we can create a vector that holds that enum and
-so, ultimately, holds different types:
+Ví dụ, cho rằng chúng ta muốn lấy giá trị trong 1 dòng của bảng tính, nơi mà
+1 số cột chứa số nguyên, 1 số chứa số thực, và 1 số chứa chuỗi. Chúng ta có thể
+định nghĩa tất cả biến thể của enum và giữ các kiểu giá trị khác nhau, khi đó tất cả
+biến thể của enum đều được xem là cùng 1 kiểu. Như vậy chúng ta có thể tạo ra một
+vector giữ những enum đó và, cuối cùng, giữ các kiểu dữ liệu khác nhau:
 
 ```rust
 enum SpreadsheetCell {
