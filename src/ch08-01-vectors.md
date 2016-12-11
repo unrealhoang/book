@@ -175,7 +175,6 @@ hợp đó.
 > Ghi chú: Để biết thêm thông tin về vấn đề này, hãy xem [The Nomicon][nomicon].
 [nomicon]: https://doc.rust-lang.org/stable/nomicon/vec.html
 
-### Using an Enum to Store Multiple Types
 ### Sử dụng Enum để Lưu nhiều kiểu dữ liệu
 
 Vào đầu chương này, chúng ta đã nghiên cứu là vector chỉ có thể lưu trữ giá trị
@@ -204,14 +203,14 @@ let row = vec![
 ];
 ```
 
-The reason Rust needs to know exactly what types will be in the vector at
-compile time is so that it knows exactly how much memory on the heap will be
-needed to store each element. A secondary advantage to this is that we can be
-explicit about what types are allowed in this vector. If Rust allowed a vector
-to hold any type, there would be a chance that one or more of the types would
-cause errors with the operations performed on the elements of the vector. Using
-an enum plus a `match` means that Rust will ensure at compile time that we
-always handle every possible case, as we discussed in Chapter 6.
+Lý do mà Rust cần biết chính xác kiểu dữ liệu nào sẽ được chứa trong vector tại
+thời điểm biên dịch (compile time) là vì nó cần biết chính xác bao nhiêu không gian
+trong bộ nhớ Heap cần để chứa mỗi phần tử. Lợi điểm thứ 2 của việc này là chúng ta
+có thể giới hạn những kiểu dữ liệu được chứa trong vector. Nếu Rust cho phép vector
+có thể giữ bất kì kiểu dữ liệu nào, sẽ có khả năng một hay nhiều kiểu dữ liệu sẽ
+gây ra lỗi khi chúng ta thực thi các hàm không tương thích. Sử dụng kết hợp enum và
+`match` có nghĩa là Rust có thể đảm bảo ở compile time là chúng ta luôn luôn xử lý
+tất cả trường hợp có thể xảy ra, như chúng ta đã thảo luận ở Chương 6.
 
 <!-- Can you briefly explain what the match is doing here, as a recap? How does
 it mean we always handle every possible case? I'm not sure it's totally clear.
@@ -220,10 +219,16 @@ it mean we always handle every possible case? I'm not sure it's totally clear.
 don't think we should repeat it here as well, but we added a reference. /Carol
 -->
 
-If you don't know at the time that you're writing a program the exhaustive set
-of types the program will get at runtime to store in a vector, the enum
-technique won't work. Insetad, you can use a trait object, which we'll cover in
-Chapter 13.
+Nếu tại thời điểm viết chương trình bạn không biết tất cả những kiểu dữ liệu có thể
+sẽ được chứa trong vector lúc nó được chạy, kĩ thuật dùng enum sẽ không hoạt động.
+Thay vào đó, bạn có thể sử dụng trait object, chúng ta sẽ tìm hiểu về nó trong
+Chương 13.
+
+Sau khi chúng ta đã tìm hiểu qua một số những cách thông dụng nhất để sử dụng vector,
+hãy đảm bảo là bạn sẽ xem qua tài liệu API (API documentation) để biết tất cả những
+hàm hữu ích được viết trong module `Vec` của thư viện chuẩn. Ví dụ, ngoài `push` còn
+có hàm `pop` sẽ giúp bạn xoá và lấy ra phần tử cuối cùng trong vector. Bây giờ, hãy
+cùng qua tới kiểu dữ liệu tập hợp tiếp theo: `String`!
 
 Now that we've gone over some of the most common ways to use vectors, be sure
 to take a look at the API documentation for all of the many useful methods
