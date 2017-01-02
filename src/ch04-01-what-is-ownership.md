@@ -1,87 +1,93 @@
 ## What is Ownership?
+## Ownership là gì?
 
-Rust’s central feature is *ownership*. It is a feature that is straightforward
-to explain, but has deep implications for the rest of the language.
+Tính năng trung tâm của Rust là *ownership*. Nó là tính năng rất đơn giản
+để giải thích, nhưng nó có ảnh hưởng rất sâu tới toàn bộ phần còn lại của
+ngôn ngữ.
 
-All programs have to manage the way they use a computer’s memory while running.
-Some languages have garbage collection that’s constantly looking for no longer
-used memory as the program runs, while in others, the programmer has to
-explicitly allocate and free the memory. Rust takes a third approach: memory is
-managed through a system of ownership with a set of rules that the compiler
-checks at compile-time. You do not pay any run-time cost for any of these
-features.
+Tất cả chương trình đều phải quản lý cách mà chúng sử dụng bộ nhớ của máy tính
+khi chúng chạy. Một số ngôn ngữ có bộ thu gom rác sẽ liên tục tìm kiếm những
+mảng bộ nhớ không còn được dùng tới khi chương trình đang chạy, hoặc một số khác,
+người lập trình viên phải cấp phát và giải phóng bộ nhớ một cách rõ ràng. Rust
+dùng một cách tiếp cận khác: bộ nhớ sẽ được quản lý thông qua một hệ thống ownership
+với một tập hợp các quy tắc mà trình biên dịch (compiler) sẽ kiểm tra ở lúc biên
+dịch. Chương trình của bạn sẽ không phải trả bất kì chi phí (về mặt tài nguyên)
+trong lúc thực thi cho bất kì tính năng nào của ownership.
 
-Since ownership is a new concept for many programmers, it does take some time
-to get used to. There is good news, though: the more experienced you become
-with Rust and the rules of the ownership system, the more you’ll be able to
-naturally develop code that is both safe and efficient. Keep at it!
+Vì ownership là một khái niệm mới cho nhiều lập trình viên, sẽ mất một thời
+gian để bạn có thể làm quen với nó. Tin tốt là: bạn càng có nhiều kinh nghiệm
+với Rust và các luật lệ của hệ thống ownership, thì bạn càng có khả viết ra
+code vừa an toàn và vừa hiệu quả. Hãy nắm lấy nó!
 
-Once you understand ownership, you have a good foundation for understanding the
-features that make Rust unique. In this chapter, we’ll learn ownership by going
-through some examples, focusing on a very common data structure: strings.
+Một khi bạn đã hiểu ownership, bạn sẽ có một nền tảng tốt để hiểu những tính năng
+làm nên sự đặc biệt của Rust. Trong chương này, chúng ta sẽ học ownership bằng
+cách đi qua những ví dụ, tập trung vào một cấu trúc dữ liệu vô cùng quen thuộc:
+string (chuỗi).
 
 <!-- PROD: START BOX -->
 
-> ### The Stack and the Heap
+> ### Stack và Heap
 >
-> In many programming languages, we don’t have to think about the stack and the
-> heap very often. But in a systems programming language like Rust, whether a
-> value is on the stack or the heap has more of an effect on how the language
-> behaves and why we have to make certain decisions. We’re going to be
-> describing parts of ownership in relation to the stack and the heap, so here
-> is a brief explanation.
+> Trong nhiều ngôn ngữ lập trình, chúng ta không cần phải nghĩ về bộ nhớ stack
+> và bộ nhớ heap một cách thường xuyên. Nhưng trong những ngôn ngữ lập trình
+> hệ thống như Rust, việc một giá trị  nằm trên stack hay nằm trên heap có ảnh
+> hưởng rất lớn tới việc ngôn ngữ hoạt động như thế nào và tại sao chúng ta phải
+> lựa chọn trong một số tình huống. Chúng ta sẽ giải thích những phần mà ownership
+> có liên quan tới bộ nhớ stack và heap, và đây là lời giải thích đại ý.
+
+> Cả bộ nhớ stack và heap đều là những phần của bộ nhớ mà có thể được sử dụng
+> bởi code của chúng ta tại thời gian thực thi, nhưng chúng được cấu tạo bằng
+> những cách khác nhau. Bộ nhớ stack lưu trữ giá trị theo thứ tự chúng nhận được
+> và xoá chúng theo thứ tự ngược lại. Đây chính là ví dụ cho thuật ngữ *last in,
+> first out* (*vào sau, ra trước*). Hãy nghĩ tới một chồng dịa: khi bạn thêm dĩa
+> vào chồng dĩa này, bạn bỏ lên trên cùng, và khi bạn cần dĩa thì bạn sẽ lấy ra
+> từ trên cùng. Thêm vào hay lấy ra từ giữa chồng dĩa sẽ không dễ như vậy! Thêm
+> dữ liệu vào stack sẽ được gọi là *push* (*đẩy vào*), và lấy dữ liệu ra sẽ được
+> gọi là *pop* (*rút ra*).
 >
-> Both the stack and the heap are parts of memory that is available to your code
-> to use at runtime, but they are structured in different ways. The stack stores
-> values in the order it gets them and removes the values in the opposite order.
-> This is referred to as *last in, first out*. Think of a stack of plates: when
-> you add more plates, you put them on top of the pile, and when you need a
-> plate, you take one off the top. Adding or removing plates from the middle or
-> bottom wouldn’t work as well! Adding data is called *pushing onto the stack*
-> and removing data is called *popping off the stack*.
+> Bộ nhớ stack rất nhanh vì cách nó truy xuất dữ liệu: nó không cần phải kiếm xung
+> quanh để thêm dữ liệu mới hay để lấy dữ liệu cũ ra; chỗ cần thêm/lấy ra luôn luôn
+> nằm trên đỉnh. Một đặc tính khác làm cho stack nhanh là vì tất cả dữ liệu nằm
+> trên stack cần phải có kích thước cố định và được biết trước từ lúc biên dịch.
 >
-> The stack is fast because of the way it accesses the data: it never has to
-> look around for a place to put new data or a place to get data from; that
-> place is always the top. Another property that makes the stack fast is that
-> all data on the stack must take up a known, fixed size.
+> Cho những dữ liệu mà chúng ta không thể biết kích thước của chúng ở lúc biên dịch,
+> hoặc là kích thước của chúng có thể thay đổi, chúng ta có thể lưu trữ dữ liệu
+> trên heap. Bộ nhớ heap thì ít được sắp xếp hơn: khi chúng ta nhét dữ liệu lên bộ
+> nhớ heap, chúng ta sẽ hỏi một kích thước bộ nhớ nhất định. Hệ điều hành sẽ tìm
+> một chỗ trống đủ lớn trong heap, đánh dấu phần bộ nhớ đó là đã được sử dụng, và
+> trả về cho chúng ta một con trỏ tới vị trí đó. Quá trình này được gọi là *cấp
+> phát bộ nhớ trên heap*, và đôi khi chúng ta gọi tắt là "cấp phát" (allocate).
+> Nhét dữ liệu vào stack không được xem là cấp phát. Bởi vì con trỏ là một giá trị
+> cố định và biết trước kích thước, chúng ta có thể lưu con trỏ trên stack, nhưng
+> khi chúng ta cần dữ liệu thực sự, chúng ta cần đi đến địa chỉ mà con trỏ trỏ tới.
 >
-> For data with a size unknown to us at compile time, or a size that might
-> change, we can store data on the heap instead. The heap is less organized:
-> when we put data on the heap, we ask for some amount of space. The operating
-> system finds an empty spot somewhere in the heap that is big enough, marks it
-> as being in use, and returns to us a pointer to that location. This process
-> is called *allocating on the heap*, and sometimes we just say “allocating”
-> for short. Pushing values onto the stack is not considered allocating. Since
-> the pointer is a known, fixed size, we can store the pointer on the stack,
-> but when we want the actual data, we have to follow the pointer.
+> Nghĩ về việc ngồi ở nhà hàng. Khi bạn đến, bạn sẽ báo là nhóm của bạn gồm bao
+> nhiêu người, và bồi bàn sẽ tìm một bàn trống mà sẽ đủ chỗ cho nhóm của bạn. và
+> dẫn bạn tới bàn đó. Nếu nhóm của bạn có người đến trễ, họ chỉ cần hỏi là bạn ngồi
+> bàn nào và tới bàn đó ngồi.
 >
-> Think of being seated at a restaurant. When you enter, you say how many people
-> are in your group, and the staff finds an empty table that would fit everyone
-> and leads you there. If someone in your group comes late, they can ask where
-> you have been seated to find you.
+> Truy cập dữ liệu trong heap sẽ chậm hơn vì chúng ta phải đi theo con trỏ để đến
+> vị trí cần truy cập. Đồng thời, CPU sẽ nhanh hơn nếu nó ít phải nhảy giữa các
+> vùng bộ nhớ hơn. Tiếp tục ví dụ khi nay, tưởng tượng người bồi bạn ở nhà hàng
+> mà phải nhận gọi món cho nhiều bàn. Nó sẽ hiệu quả nhất nếu như anh ta có thể
+> ghi tất cả các món của một bàn trước khi chuyển qua bàn khác. Ghi món của bàn
+> A, xong sau đó sang ghi món của bàn B, rồi lại ghi 1 món khác của bàn A, rồi lại
+> quay lại bạn B để ghi món sẽ chậm hơn rất nhiều. Cũng như vậy, bộ nhớ sẽ làm việc
+> của chúng nhanh hơn nếu chúng thực thi trên vùng bộ nằm gần nhau (giống như trên
+> stack), hơn là các vùng bộ nhớ nằm xa nhau (khả năng có thể xảy ra trên heap).
+> Cấp phát một vùng dữ liệu với kích thước lớn trên heap cũng sẽ rất tốn thời gian.
 >
-> Accessing data in the heap is slower because we have to follow a pointer to
-> get there. Contemporary processors are faster if they jump around less in
-> memory. Continuing the analogy, consider a server at a restaurant who is
-> taking orders from many tables. It's most efficient to get all of the orders
-> at one table before moving on to the next table. Taking an order from table
-> A, then an order from table B, then one from A again, then one from B again
-> would be much slower. By the same token, a processor can do its job better if
-> it works on data that's close to other data (as it is on the stack), rather
-> than farther away (as it can be on the heap). Allocating a large amount of
-> space on the heap can also take time.
+> Khi code của chúng ta gọi một hàm, giá trị truyền vào cho hàm (kể cả con trỏ tới
+> dữ liệu thực sự trên heap) và những biến cục bộ của hàm sẽ được đẩy vào stack.
+> Khi hàm kết thúc, những giá trị này sẽ được rút ra khỏi stack.
 >
-> When our code calls a function, the values passed into the function
-> (including, potentially, pointers to data on the heap) and the function’s
-> local variables get pushed onto the stack. When the function is over, those
-> values get popped off the stack.
->
-> Keeping track of what parts of code are using what data on the heap,
-> minimizing the amount of duplicate data on the heap, and cleaning up unused
-> data on the heap so that we don’t run out of space—these are all problems
-> that ownership addresses. Once you understand ownership, you won’t need to
-> think about the stack and the heap very often, but knowing that managing heap
-> data is why ownership exists can help explain why it works the way it does.
+> Theo dõi những phần nào của code sử dụng dữ liệu trong heap, giảm thiểu tối đa
+> số lượng dữ liệu trùng lặp trên heap, và dọn dẹp những dữ liệu trên heap mà chúng
+> ta không sử dụng tới để chúng ta không bị hết bộ nhớ - đó là tất cả những vấn đề
+> mà ownership giải quyết. Một khi bạn hiểu ownership, bạn sẽ không cần phải suy
+> nghĩ về stack và heap một cách thường xuyên, nhưng hiểu rằng quản lý dữ liệu trên
+> bộ nhớ heap là lý do mà ownership tồn tại sẽ giúp giải thích tại sao nó lại hoạt
+> động như vậy.
 
 <!-- PROD: END BOX -->
 
