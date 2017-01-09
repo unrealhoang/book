@@ -39,7 +39,7 @@ string (chuỗi).
 > bởi code của chúng ta tại thời gian thực thi, nhưng chúng được cấu tạo bằng
 > những cách khác nhau. Bộ nhớ stack lưu trữ giá trị theo thứ tự chúng nhận được
 > và xoá chúng theo thứ tự ngược lại. Đây chính là ví dụ cho thuật ngữ *last in,
-> first out* (*vào sau, ra trước*). Hãy nghĩ tới một chồng dịa: khi bạn thêm dĩa
+> first out* (*vào sau, ra trước*). Hãy nghĩ tới một chồng dĩa: khi bạn thêm dĩa
 > vào chồng dĩa này, bạn bỏ lên trên cùng, và khi bạn cần dĩa thì bạn sẽ lấy ra
 > từ trên cùng. Thêm vào hay lấy ra từ giữa chồng dĩa sẽ không dễ như vậy! Thêm
 > dữ liệu vào stack sẽ được gọi là *push* (*đẩy vào*), và lấy dữ liệu ra sẽ được
@@ -62,13 +62,13 @@ string (chuỗi).
 > khi chúng ta cần dữ liệu thực sự, chúng ta cần đi đến địa chỉ mà con trỏ trỏ tới.
 >
 > Nghĩ về việc ngồi ở nhà hàng. Khi bạn đến, bạn sẽ báo là nhóm của bạn gồm bao
-> nhiêu người, và bồi bàn sẽ tìm một bàn trống mà sẽ đủ chỗ cho nhóm của bạn. và
+> nhiêu người, và bồi bàn sẽ tìm một bàn trống mà sẽ đủ chỗ cho nhóm của bạn, và
 > dẫn bạn tới bàn đó. Nếu nhóm của bạn có người đến trễ, họ chỉ cần hỏi là bạn ngồi
 > bàn nào và tới bàn đó ngồi.
 >
 > Truy cập dữ liệu trong heap sẽ chậm hơn vì chúng ta phải đi theo con trỏ để đến
 > vị trí cần truy cập. Đồng thời, CPU sẽ nhanh hơn nếu nó ít phải nhảy giữa các
-> vùng bộ nhớ hơn. Tiếp tục ví dụ khi nay, tưởng tượng người bồi bạn ở nhà hàng
+> vùng bộ nhớ hơn. Tiếp tục ví dụ khi nãy, tưởng tượng người bồi bạn ở nhà hàng
 > mà phải nhận gọi món cho nhiều bàn. Nó sẽ hiệu quả nhất nếu như anh ta có thể
 > ghi tất cả các món của một bàn trước khi chuyển qua bàn khác. Ghi món của bàn
 > A, xong sau đó sang ghi món của bàn B, rồi lại ghi 1 món khác của bàn A, rồi lại
@@ -91,114 +91,115 @@ string (chuỗi).
 
 <!-- PROD: END BOX -->
 
-### Ownership Rules
+### Những quy tắc Ownership
 
-First, let’s take a look at the rules. Keep these in mind as we go through the
-examples that will illustrate the rules:
+Đầu tiên, hãy nhìn vào những quy tắc của Ownership. Hãy giữ nó trong đâu khi chúng
+ta xem qua những ví dụ sẽ thể hiện những quy tắc này:
 
-> 1. Each value in Rust has a variable that’s called its *owner*.
-> 2. There can only be one owner at a time.
-> 3. When the owner goes out of scope, the value will be dropped.
+> 1. Mỗi giá trị trong Rust có 1 biến được gọi là *owner* của giá trị đó.
+> 2. Chỉ có thể có một *owner* tại một thời điểm.
+> 3. Khi owner đi ra khỏi phạm vi hoạt động (scope), giá trị đó sẽ bị huỷ (drop).
 
-### Variable Scope
+### Phạm vi hoạt động của biến
 
-We’ve walked through an example of a Rust program already in the tutorial
-chapter. Now that we’re past basic syntax, we won’t include all of the `fn
-main() {` stuff in examples, so if you’re following along, you will have to put
-the following examples inside of a `main` function yourself. This lets our
-examples be a bit more concise, letting us focus on the actual details rather
-than boilerplate.
+Chúng ta đã đi qua một ví dụ về chương trình Rust trong chương hướng dẫn. Bây giờ,
+sau khi chúng ta đã biết những cú pháp căn bản, chúng ta sẽ không đưa tất cả những
+`fn main() {` vào những ví dụ tiếp theo, nếu như bạn dõi theo đây, bạn sẽ phải
+tự đưa những ví dụ tiếp theo vào trong hàm `main`. Như vậy sẽ giúp cho những ví
+dụ chính xác hơn, giúp chúng ta tập trung vào nội dung chính thay vì những thành
+phần bắt buộc.
 
-As a first example of ownership, we’ll look at the *scope* of some variables. A
-scope is the range within a program for which an item is valid. Let’s say we
-have a variable that looks like this:
+Ví dụ đầu tiên về ownership, chúng ta sẽ xem qua phạm vi (*scope*) của một số biến.
+Scope là phạm vi trong chương trình mà trong đó một đối tượng là có hiệu lực. Giả
+sử chúng ta có một biến như sau:
 
 ```rust
 let s = "hello";
 ```
 
-The variable `s` refers to a string literal, where the value of the string is
-hard coded into the text of our program. The variable is valid from the point
-at which it’s declared until the end of the current *scope*. That is:
+Biến `s` chỉ tới một chuỗi hằng - giá trị của chuỗi này được viết cứng vào nội
+dung code của chương trình của chúng ta. Biến này có hiệu lực từ lúc nó được
+khai báo cho tới kết thúc của *scope* hiện tại. Đó là:
 
 ```rust
-{                      // s is not valid here, it’s not yet declared
-    let s = "hello";   // s is valid from this point forward
+{                      // s không có hiệu lực ở đây, nó chưa được khai báo
+    let s = "hello";   // s có hiệu lực bắt đầu từ đây
 
-    // do stuff with s
-}                      // this scope is now over, and s is no longer valid
+    // Làm gì đó với s
+}                      // scope này tới đây là hết, và s không còn có hiệu lực nữa
 ```
 
-In other words, there are two important points in time here:
+Nói cách khác, có 2 thời điểm quan trọng ở đây:
 
-- When `s` comes *into scope*, it is valid.
-- It remains so until it *goes out of scope*.
+- Khi `s` được khai báo trong scope, nó có hiệu lực.
+- Nó giữ hiệu lực của nó cho tới khi nó *ra khỏi scope*.
 
-At this point, things are similar to other programming languages. Now let’s
-build on top of this understanding by introducing the `String` type.
+Tại thời điểm này, mọi thứ vẫn giống với những ngôn ngữ khác. Bây giờ hãy tiếp
+tục ví dụ sau bằng cách giới thiệu về kiểu `String`.
 
-### The `String` Type
+### Kiểu `String`
 
-In order to illustrate the rules of ownership, we need a data type that is more
-complex than the ones we covered in Chapter 3. All of the data types we’ve
-looked at previously are stored on the stack and popped off the stack when
-their scope is over, but we want to look at data that is stored on the heap and
-explore how Rust knows when to clean that data up.
+Để minh hoạ các quy tắc của ownership, chúng ta cần một kiểu dữ liệu mà phức tạp
+hơn những kiểu mà chúng ta đã học ở Chương 3. Tất cả những kiểu dữ liệu chúng ta
+đã xem qua đều được lưu trữ trên stack và được đẩy ra khỏi stack khi scope của
+chúng kết thúc, nhưng chúng ta muốn xem dữ liệu mà được lưu trữ ở trên heap và
+tìm hiểu cách mà Rust biết lúc nào thì cần dọn dẹp phần dữ liệu đó.
 
-We’re going to use `String` as the example here and concentrate on the parts of
-`String` that relate to ownership. These aspects also apply to other complex
-data types provided by the standard library and that you create. We’ll go into
-more depth about `String` specifically in Chapter 8.
+Chúng ta sẽ dùng `String` làm ví dụ ở đây và tập trung vào phần của `String` mà
+có liên quan tới ownership. Những khía cạnh này cũng sẽ áp dụng cho các kiểu dữ
+liệu phức tạp khác được cung cấp trong thư viện chuẩn hay do bạn tạo ra. Chúng ta
+sẽ tìm hiểu kĩ hơn về đặc điểm của `String` trong Chương 8.
 
-We’ve already seen string literals, where a string value is hard-coded into our
-program. String literals are convenient, but they aren’t always suitable for
-every situation you want to use text. For one thing, they’re immutable. For
-another, not every string value can be known when we write our code: what if we
-want to take user input and store it?
+Chúng ta đã thấy chuỗi hằng - giá trị chuỗi được hard-code vào trong chương
+trình. Chuỗi hằng rất tiện lợi, nhưng không phải lúc nào chúng cũng phù hợp với
+những tình huống mà chúng ta muốn sử dụng văn bản. Một là, chuỗi hằng là bất biến
+(immutable) không tay đổi được. Hai là, không phải giá trị chuỗi nào chúng ta cũng
+có thể biết được ở thời điểm chúng ta viết chương trình: phải làm sao nếu chúng ta
+muốn lấy giá trị được nhập bởi người dùng và lưu trữ nó?
 
-For things like this, Rust has a second string type, `String`. This type is
-allocated on the heap, and as such, is able to store an amount of text that is
-unknown to us at compile time. You can create a `String` from a string literal
-using the `from` function, like so:
+Cho những trường hợp như vậy, Rust có một kiểu dữ liệu khác là `String`. Kiểu dữ
+liệu này được cấp phát trên heap, và như vậy, nó có thể lưu trữ được lượng văn bản
+mà chúng ta không biết ở thời điểm biên dịch. Bạn có thể tạo `String` từ chuỗi hằng,
+sử dụng hàm `from`, như sau:
 
 ```rust
 let s = String::from("hello");
 ```
 
-The double colon (`::`) is an operator that allows us to namespace this
-particular `from` function under the `String` type itself, rather than using
-some sort of name like `string_from`. We’ll discuss this syntax more in the
-“Method Syntax” and “Modules” chapters.
+Dấu hai chấm kép (`::`) là một toán tử cho phép chúng ta chỉ ra hàm `from` của
+kiểu dữ liệu `String`, thay vì phải dùng tên theo kiểu `string_from`. Chúng ta
+sẽ bàn thêm về cú pháp này trong chương "Cú pháp hàm" và " chương "Module".
 
-This kind of string *can* be mutated:
+Kiểu chuỗi này *có thể* thay đổi được:
 
 ```rust
 let mut s = String::from("hello");
 
-s.push_str(", world!"); // push_str() appends a literal to a String
+s.push_str(", world!"); // push_str() thêm chuỗi hằng vào cuối chuỗi
 
-println!("{}", s); // This will print `hello, world!`
+println!("{}", s); // Dòng này sẽ in ra `hello, world!`
 ```
 
-So, what’s the difference here? Why can `String` be mutated, but literals
-cannot? The difference comes down to how these two types deal with memory.
+Vậy thì, sự khác biệt ở đây là gì? Tại sao `String` có thể bị thay đổi, còn chuỗi
+hằng thì không thể? Sự khác biệt quy về làm thế nào 2 kiểu này tổ chức bộ nhớ.
 
-### Memory and Allocation
+### Bộ nhớ và Cấp phát
 
-In the case of a string literal, because we know the contents at compile time,
-the text is hard-coded directly into the final executable. This makes string
-literals quite fast and efficient. But these properties only come from its
-immutability. Unfortunately, we can’t put a blob of memory into the binary for
-each piece of text whose size is unknown at compile time and whose size might
-change over the course of running the program.
+Trong trường hợp chuỗi hằng, vì chúng ta biết trước nội dung ở thời điểm biên dịch,
+chuỗi văn bản được ghi thẳng vào file chạy cuối cùng. Điều này giúp cho chuỗi hằng
+rất nhanh và hiệu quả. Nhưng những đặc tính đó chỉ vì tính bất biến của nó. Đáng
+tiếc là, chúng ta không thể bỏ 1 đoạn bộ nhớ vào file nhị phân cho mỗi một đoạn
+văn bản mà độ dài của chúng là không biết được ở thời điểm biên dịch, hoặc thậm
+chí độ dài đó có thể thay đổi khi chương trình được chạy.
 
-With the `String` type, in order to support a mutable, growable piece of text,
-we need to allocate an amount of memory on the heap, unknown at compile time,
-to hold the contents. This means two things:
+Với kiểu `String`, để hỗ trợ cho việc biến đổi, và cho phép nội dung văn bản có
+thể tăng lên được, chúng ta cần cấp phát một vùng bộ nhớ ở heap, mà kích thước
+không thể biết trước được tại thời điểm biên dịch, để giữ nội dung. Điều này mang
+hai ý nghĩa:
 
-1. The memory must be requested from the operating system at runtime.
-2. We need a way of giving this memory back to the operating system when we’re
-   done with our `String`.
+1. Vùng nhớ phải được yêu cầu từ hệ điều hành trong lúc thực thi (runtime).
+2. Chúng ta cần phải có cách trả vùng bộ nhớ này về lại cho hệ điều hành khi chúng
+   ta đã sử dụng xong `String` đó.
 
 That first part is done by us: when we call `String::from`, its implementation
 requests the memory it needs. This is pretty much universal in programming
